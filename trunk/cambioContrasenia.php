@@ -1,7 +1,7 @@
 <html>
 <head>
-<link href="extras/Estilo.css" rel="stylesheet" type="text/css" media="screen" />
-<script type="text/javascript" src="extras/Javascripts.js"></script>
+<link href="css/Estilo.css" rel="stylesheet" type="text/css" media="screen" />
+<script type="text/javascript" src="js/Javascripts.js"></script>
 <title>Gardien Web - Cabio de Contrase&ntilde;a</title>
 </head>
 <body>
@@ -11,6 +11,7 @@ require ("controles/ControlUsuarioWeb.php");
 require ("funcionesGeneralesPagina.php");
 $controlUsrWeb=new ControlUsuarioWeb();
 logo();
+menulateral();
 ?>
 
 	<!-- Mostrando Datos -->
@@ -20,15 +21,6 @@ logo();
 	$loginCorr=isset($_SESSION['nombreUsuario']);
 	?>
 		<div id="contenido">
-			<div id="menulateral">
-				<ul class="navbar">
-  				<li><a href="menu.php">Menu principal</a>
-  				<li><a href="nuevoReclamo.php">Nuevo Reclamo</a>
-  				<li><a href="verReclamos.php">Ver Reclamos</a>
-  				<li><a href="cambioLogin.php">Cambiar Contrase&ntilde;a</a>
-	  			<li><a href="index.php?accion=cerrarLogin">Cerrar Sesion</a>
-				</ul>
-			</div>
 			<h1>CAMBIAR CONTRASE&Ntilde;A</h1>
 			<?php
 			if($loginCorr==true){
@@ -36,8 +28,7 @@ logo();
 				if(isset($_REQUEST['accion'])){
 					if($_REQUEST['accion']=="cambiologin"){
 						$objUsr=$controlUsrWeb->obtenerUsuarioWeb($_SESSION['nombreUsuario']);
-						//$objOldPass=md5($_REQUEST['passOld']);
-						$objOldPass=$_REQUEST['passOld'];
+						$objOldPass=md5($_REQUEST['passOld']);
 						$objNewPass=$_REQUEST['passModif'];
 						if($objOldPass==$objUsr->getContrasenia()){ //modif
 							$controlUsrWeb->modificarContrasenia($_SESSION['nombreUsuario'],$objNewPass);
@@ -50,7 +41,7 @@ logo();
 
 				//	<!-- Mostrando Datos -->
 				echo "<br/>        ";
-				echo "<form name='cambiarLogin' id='cambiarLogin' method='post' action=\"cambioLogin.php\" > ";
+				echo "<form name='cambiarLogin' id='cambiarLogin' method='post' action=\"cambioContrasenia.php\" > ";
 				echo "  <div id='tablaDatos'> ";
 				echo "  <table width='500' >  ";
 				echo "    <tr>  <th colspan='2'>Datos del Usuario</th>  </tr> ";

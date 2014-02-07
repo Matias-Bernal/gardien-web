@@ -1,8 +1,8 @@
 <html>
 <head>
-<link href="extras/Estilo.css" rel="stylesheet" type="text/css"
+<link href="css/Estilo.css" rel="stylesheet" type="text/css"
 	media="screen" />
-<script type="text/javascript" src="extras/Javascripts.js"></script>
+<script type="text/javascript" src="js/Javascripts.js"></script>
 <title>Gardien Web</title>
 </head>
 <body>
@@ -53,7 +53,6 @@ logo();
 				echo "<script  language=\"JavaScript\">";
 				echo "doRedirect(\"menu.php\");";
 				echo "</script>";
-				//identificacionGeneral($_SESSION['idUsuario'],$_SESSION['idEmpresa']); esto es de maria
 			}
 		}
 		if($mostrarInicio=="SI"){
