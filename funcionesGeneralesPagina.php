@@ -8,6 +8,18 @@
      echo "<div id='logoGardien'> <img src=\"images/nissan.png\"  width='80' height='101' border='0'/> </div> \n";
      echo "</div> \n";
    }
+
+    function menulateral() {
+      echo "<div id'menulateral'>";
+      echo " <ul class='navbar'>";
+      echo "  <li><a href='menu.php'>Menu principal</a>";
+      echo "  <li><a href='nuevoPedido.php'>Nuevo Pedido</a>";
+      echo "  <li><a href='verPedidos.php'>Ver Pedidos</a>";
+      echo "  <li><a href='cambioContrasenia.php'>Cambiar Contrase&ntilde;a</a>";
+      echo "  <li><a href='index.php?accion=cerrarLogin'>Cerrar Sesion</a>";
+      echo " </ul>";
+      echo "</div>";
+    }
   
     function sinLoginPagina(){
      echo "<div id='menu'> \n";
@@ -26,8 +38,8 @@
      echo "<h3 class='titulo'>$msj</h3>\n";
      echo "</div> <br/>\n";
    }
-   
-   function selectSINO($param,$value){
+
+  function selectSINO($param,$value){
    	$return="<select name='$param' >";
    	if ($value=='SI'){
     	$return = $return."<option value='SI' selected> SI </option>\n";
@@ -63,9 +75,9 @@
         		           currentText: 'Hoy',
         		           monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
         		           monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
-        		           dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
-        		           dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
-        		           dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
+        		           dayNames: ['Domingo', 'Lunes', 'Martes', 'MiÃ©rcoles', 'Jueves', 'Viernes', 'SÃ¡bado'],
+        		           dayNamesShort: ['Dom','Lun','Mar','MiÃ©','Juv','Vie','SÃ¡b'],
+        		           dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','SÃ¡'],
         		           weekHeader: 'Sm',
         		           firstDay: 1,
         		           isRTL: false,
@@ -99,9 +111,9 @@
         		           currentText: 'Hoy',
         		           monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
         		           monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
-        		           dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
-        		           dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
-        		           dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
+        		           dayNames: ['Domingo', 'Lunes', 'Martes', 'MiÃ©rcoles', 'Jueves', 'Viernes', 'SÃ¡bado'],
+        		           dayNamesShort: ['Dom','Lun','Mar','MiÃ©','Juv','Vie','SÃ¡b'],
+        		           dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','SÃ¡'],
         		           weekHeader: 'Sm',
         		           firstDay: 1,
         		           isRTL: false,
@@ -208,6 +220,8 @@
   	}
   	return $result;
   }
+
+
 
 	 
 	 /*public static String getHTMLScriptFechaYHora(String nombreComponente, String path, Date fechaMinima, Date fechaDefecto){

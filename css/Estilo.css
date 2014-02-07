@@ -1,0 +1,178 @@
+@charset "utf-8";
+/*   Estilos Centro Argentino de Jubilados   */
+
+/*   Tags HTML   */
+
+body {
+  margin: 5px auto;         /*margen de la orilla*/
+  padding: 0;               /*distancia de la orilla(en los 4 lados es cero)*/
+  background: #ffffff;      /*color de fondo, blanco*/
+  font: normal 85%/150% Arial, Helvetica, sans-serif;    /*tipo de fuente*/
+  color: #111;      /*color de letra*/
+  text-align: center; /* alineacion del texto*/ /*no funciona en IE*/
+}
+
+/*   Textos   */
+h1, h3 {
+  margin: 0;
+  color: #111;
+  font-weight: bold;
+}   /*margen de orilla color de letra,tipo de fuente*/
+
+h1 {
+  font-size: 18px;
+  margin: 0 0 5px 0;
+}
+
+p {
+  font-size: 16px; 
+  color: #111; 
+  margin: 5px 1px 2px 1px;
+}      /*texto: tamaño, color y margenes*/
+
+fieldset {
+  padding: 1px 10px 10px 10px; 
+  border: 4px ridge #2af; color: #000;
+} /*lineas del fieldset: */
+
+legend {
+  padding: 1px 5px 2px 5px;
+  margin: 0 0 10px 0; 
+  background-color: #fff;
+  font-size: 17px; 
+  font-weight: bold;
+}
+
+ul.navbar {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  top: 0em;
+  left: 0em;
+  width: 15em 
+}
+ul.navbar li {
+  background: #191970;
+  color: #CDC9C9;      /*color de letra*/
+  margin: 0.5em 0;
+  padding: 0.3em;
+  border-right: 1em solid black }
+ul.navbar a {
+  text-decoration: none;
+  color: #ffffff;
+}
+
+div.contiene_tabla, div.contiene_tabla2 {
+height: 100px;
+overflow: auto;
+overflow-y: auto;
+overflow-x: hidden;
+width: 750px;
+border-bottom: solid 1px #000;
+border-right: solid 1px #000;
+}
+
+table {
+background-color: #EFEFEF;
+color: black;
+table-layout: fixed;
+width: 750px;
+}
+
+table.titulos {
+width: 750px;
+}
+/*   layout   */
+
+th, td {
+border: 1px solid black;
+padding: 4px;
+white-space: pre;
+white-space: pre-wrap;
+white-space: pre-line;
+white-space: -pre-wrap;
+white-space: -o-pre-wrap;
+white-space: -moz-pre-wrap;
+white-space: -hp-pre-wrap;
+word-wrap: break-word;
+}
+
+tr.headers {
+background-color: #E9B61B;
+}
+
+/* extendemosel ancho para .contiene_tabla2
+para colocar el scroll por fuera */
+div.contiene_tabla2 {
+width: 715px;
+}
+
+/* Fix para listas */
+div.contiene_tabla ul li, div.contiene_tabla2 ul li{
+list-style-type: square;
+list-style-position: inside;
+}
+
+.logo {
+  width: 780px;
+  margin: 0 auto;
+  padding: 0;
+  text-align: center;
+}
+
+.pagina {
+  width: 780px;
+  margin: 0 auto;
+  padding: 0;
+  background: #fff;
+  text-align: left;
+  border-top: 0;
+}
+
+#logoImg {
+  text-align: center;
+  float: left;
+  width: 80px;
+  margin: 0;
+  padding: 0;
+}
+#logoGardien {
+  text-align: center;
+  background: #f8b800;/*87CEFA;      /*color de fondo, blanco*/
+  float: left;
+  width: 80px;
+  margin: 0;
+  padding: 0;
+}
+
+#logoNombre {
+  float: left;
+  width: 500px;
+  margin: 0;
+  text-align: center;
+  background: #191970;/*87CEFA;      /*color de fondo, blanco*/
+  font: normal 85%/150% Arial, Helvetica, sans-serif;    /*tipo de fuente*/
+  font-size: 30px;
+  font-weight: bold;
+  color: #CDC9C9;      /*color de letra*/
+  padding: 28px 0px 28px 0px;
+}
+
+#menu {
+  float: left;
+  width: 780px;
+  margin: 10 0 0 0;
+  padding: 0;
+  background: #7D26CD;
+
+}
+
+#contenido {
+  float: left;
+  width: 780px;
+  margin: 30px 0 100 0px;
+  padding: 0px;
+  text-align: left;
+  border: 0px solid #c00;
+}

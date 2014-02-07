@@ -6,14 +6,13 @@ class ControlUsuarioWeb {
 
 	public function obtenerUsuariosWeb(){
 		$mp=new ManipuladorPersistencia();
-		$result = $mp->obtenerObjetosOrdenadosPorFiltro("usuarioweb","NOMBRE_USUARIO");
+		$result = $mp->obtenerTodosObjetos("usuarioweb");
 		$listado=array();
-		if($result === FALSE) {
-			return $listado; // TODO: ningun registro
-		}
-		while ($row = mysqli_fetch_array($result)){
-			$obj=new UsuarioWeb($row["NOMBRE_USUARIO"],$row["CONTRASENIA"],$row["ID_AGENTE"]);
-			$listado[]=$obj;
+		if($result !== FALSE) {
+			while ($row = mysqli_fetch_array($result)){
+				$obj=new UsuarioWeb($row["NOMBRE_USUARIO"],$row["CONTRASENIA"],$row["ID_AGENTE"]);
+				$listado[]=$obj;
+			}
 		}
 		return $listado;
 	}
@@ -21,22 +20,24 @@ class ControlUsuarioWeb {
 	public function obtenerUsuarioWeb($nombre){
 		$mp=new ManipuladorPersistencia();
 		$result = $mp->obtenerObjetosPorFiltro("usuarioweb","NOMBRE_USUARIO='".$nombre."'");
-		$row = mysqli_fetch_array($result);
-		$obj= new UsuarioWeb($row["NOMBRE_USUARIO"],$row["CONTRASENIA"],$row["ID_AGENTE"]);
-		return $obj;
+		if($result===False){
+			echo "RESULTADO FALSO";
+		}else{
+			$row = mysqli_fetch_array($result);
+			$obj= new UsuarioWeb($row["NOMBRE_USUARIO"],$row["CONTRASENIA"],$row["ID_AGENTE"]);
+			return $obj;
+		}
 	}
 	
     public function modificarContrasenia($nombre,$pass){
 		$mp=new ManipuladorPersistencia();
 		$contr=md5($pass);
 		$result = $mp->modificarObjeto("usuarioweb","CONTRASENIA='".$contr."'","NOMBRE_USUARIO='".$nombre."'");
-     	return $id;
 	}
 
 	public function verificarUsuarioWeb($nombre,$pass){
 		$mp=new ManipuladorPersistencia();
 		$contr=md5($pass);
-		//$contr=$pass;
 		$result2 = $mp->obtenerObjetosPorFiltro("usuarioweb","NOMBRE_USUARIO=\"".$nombre."\"");
 		if($result2 == FALSE) {
 			return "USUARIO INCORRECTO";

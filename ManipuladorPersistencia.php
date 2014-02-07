@@ -15,7 +15,8 @@ class ManipuladorPersistencia {
 	public function agregarObjeto($tablaYdatos,$valores){
 		$link = mysqli_connect($this->host, $this->usrBD, $this->passBD, $this->nombreBD);
 		$result= mysqli_query($link,"INSERT INTO $tablaYdatos VALUES $valores");
-		return $result;
+		$last_id = $link->insert_id;
+		return $last_id;
 	}
 
 	public function eliminarObjeto($tabla,$condicion){
@@ -23,9 +24,14 @@ class ManipuladorPersistencia {
 		$result= mysqli_query($link,"DELETE FROM $tabla WHERE $condicion");
 		return $result;
 	}
-	public function obtenerTodosObjetosOrdenados($tabla,$orden){
+	public function obtenerTodosObjetos($tabla){
 		$link = mysqli_connect($this->host, $this->usrBD, $this->passBD, $this->nombreBD);
-		$result= mysqli_query($link,"SELECT * FROM $tabla ORDER BY $orden");
+		$result= mysqli_query($link,"SELECT * FROM $tabla");
+		return $result;
+	}
+	public function obtenerTodosObjetosOrdenados($tabla,$campo,$orden){
+		$link = mysqli_connect($this->host, $this->usrBD, $this->passBD, $this->nombreBD);
+		$result= mysqli_query($link,"SELECT * FROM $tabla ORDER BY $campo $orden");
 		return $result;
 	}
 
@@ -35,9 +41,9 @@ class ManipuladorPersistencia {
 		return $result;
 	}
 
-	public function obtenerObjetosOrdenadosPorFiltro($tabla,$filtro,$orden){
+	public function obtenerObjetosOrdenadosPorFiltro($tabla,$filtro,$campo,$orden){
 		$link = mysqli_connect($this->host, $this->usrBD, $this->passBD, $this->nombreBD);
-		$result= mysqli_query($link,"SELECT * FROM $tabla WHERE $filtro ORDER BY $orden");
+		$result= mysqli_query($link,"SELECT * FROM $tabla WHERE $filtro ORDER BY $campo $orden");
 		return $result;
 	}
 

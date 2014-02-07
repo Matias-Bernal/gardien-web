@@ -1,7 +1,7 @@
 <?php
 require_once('Marca.php');
 
-class Localidad {
+class Modelo {
 	private $nombre_modelo = "";
 	private $marca = null;
 	private $id = 0;
