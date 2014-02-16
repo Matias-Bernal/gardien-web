@@ -19,7 +19,7 @@ class ControlAgente {
 
 	public function obtenerAgentePorId($id){
 		$mp=new ManipuladorPersistencia();
-		$result = $mp->obtenerObjetosPorFiltro("registrante","ID='".$id."'");
+		$result = $mp->obtenerObjetosPorFiltro("REGISTRANTE","ID='".$id."'");
 		$row = mysqli_fetch_array($result);
 		$obj=new Agente($row["ID"],$row["NOMBRE_REGISTRANTE"]);
 		return $obj;
@@ -27,7 +27,7 @@ class ControlAgente {
 
 	public function obtenerAgentePorNombre($nombre){
 		$mp=new ManipuladorPersistencia();
-		$result = $mp->obtenerObjetosPorFiltro("registrante","NOMBRE_REGISTRANTE='".$nombre."'");
+		$result = $mp->obtenerObjetosPorFiltro("REGISTRANTE","NOMBRE_REGISTRANTE='".$nombre."'");
 		$row = mysqli_fetch_array($result);
 		$obj=new Agente($row["ID"],$row["NOMBRE_REGISTRANTE"]);
 		return $obj;
@@ -35,19 +35,19 @@ class ControlAgente {
 
 	public function modificarAgente($id,$agente){
 		$mp=new ManipuladorPersistencia();
-		$result = $mp->modificarObjeto("registrante","NOMBRE_REGISTRANTE='".$agente->getNombreRegistrante()."'","ID='".$id."'");
+		$result = $mp->modificarObjeto("REGISTRANTE","NOMBRE_REGISTRANTE='".$agente->getNombreRegistrante()."'","ID='".$id."'");
 		return $result;
 	}
 
 	public function agregarAgente($agente){
 		$mp=new ManipuladorPersistencia();
-		$result = $mp->agregarObjeto("agente (NOMBRE_REGISTRANTE)","('".$agente->getNombreRegistrante()."')");
+		$result = $mp->agregarObjeto("AGENTE (NOMBRE_REGISTRANTE)","('".$agente->getNombreRegistrante()."')");
 		return $result;
 	}
 
 	public function eliminarAgente($id){
 		$mp=new ManipuladorPersistencia();
-		$result = $mp->eliminarObjeto("agente","ID='".$id."'");
+		$result = $mp->eliminarObjeto("AGENTE","ID='".$id."'");
 		return $result;	
 	}
 

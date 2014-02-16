@@ -10,7 +10,7 @@ class ControlVehiculoReclamante{
 
 	public function obtenerVehiculoReclamante(){
 		$mp=new ManipuladorPersistencia();
-		$result = $mp->obtenerTodosObjetos("vehiculo_reclamante");
+		$result = $mp->obtenerTodosObjetos("VEHICULO_RECLAMANTE");
 		$listado=array();
 		if($result !== FALSE) {
 			$cvehiculo=new ControlVehiculo();
@@ -29,7 +29,7 @@ class ControlVehiculoReclamante{
 
 	public function obtenerVehiculosPorReclamante($id_reclamante){
 		$mp=new ManipuladorPersistencia();
-		$result = $mp->obtenerObjetosPorFiltro("vehiculo_reclamante","ID_RECLAMANTE='".$id_reclamante."'");
+		$result = $mp->obtenerObjetosPorFiltro("VEHICULO_RECLAMANTE","ID_RECLAMANTE='".$id_reclamante."'");
 		$listado=array();
 		if($result !== FALSE) {
 			$cvehiculo=new ControlVehiculo();
@@ -45,7 +45,7 @@ class ControlVehiculoReclamante{
 	
 	public function agregarVehiculoReclamante(VehiculoReclamante $reclamanteVehiculo){
 		$mp=new ManipuladorPersistencia();
-		$result = $mp->agregarObjeto("vehiculo_reclamante (ID_RECLAMANTE,ID_VEHICULO)",
+		$result = $mp->agregarObjeto("VEHICULO_RECLAMANTE (ID_RECLAMANTE,ID_VEHICULO)",
 		"('".$reclamanteVehiculo->getReclamante()->getId()."',
 		'".$reclamanteVehiculo->getVehiculo()->getId()."')");
 		return $result;
@@ -57,7 +57,7 @@ class ControlVehiculoReclamante{
 		$mp=new ManipuladorPersistencia();
 		$idVehiculo = $reclamanteVehiculo->getVehiculo->getId();
 		$idReclamante = $reclamanteVehiculo->getReclamante()->getId();
-		$result = $mp->eliminarObjeto("vehiculo_reclamante","ID_RECLAMANTE='".$idReclamante."' AND ID_VEHICULO='".$idVehiculo."'");
+		$result = $mp->eliminarObjeto("VEHICULO_RECLAMANTE","ID_RECLAMANTE='".$idReclamante."' AND ID_VEHICULO='".$idVehiculo."'");
 		return $result;
 	}
 

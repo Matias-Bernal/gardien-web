@@ -1,5 +1,5 @@
 <?php
-require_once('Reclamo.php');
+require_once('persistencia/Reclamo.php');
 
 class Mano_Obra {
 	private $cantidad_horas = 0.0;

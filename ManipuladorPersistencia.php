@@ -1,4 +1,5 @@
 <?php
+
 class ManipuladorPersistencia {
 	private $host = "";
 	private $usrBD = "";
@@ -9,7 +10,7 @@ class ManipuladorPersistencia {
 		$this->host = "localhost";
 		$this->usrBD = "root";
 		$this->passBD = "root";
-		$this->nombreBD = "tagle_garantias2";
+		$this->nombreBD = "tagle_garantias";
 	}
 
 	public function agregarObjeto($tablaYdatos,$valores){
@@ -44,6 +45,7 @@ class ManipuladorPersistencia {
 	public function obtenerObjetosOrdenadosPorFiltro($tabla,$filtro,$campo,$orden){
 		$link = mysqli_connect($this->host, $this->usrBD, $this->passBD, $this->nombreBD);
 		$result= mysqli_query($link,"SELECT * FROM $tabla WHERE $filtro ORDER BY $campo $orden");
+		//$link->close();
 		return $result;
 	}
 

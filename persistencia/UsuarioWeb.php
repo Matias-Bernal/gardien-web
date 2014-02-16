@@ -1,5 +1,5 @@
 <?php
-require_once('Agente.php');
+require_once('persistencia/Agente.php');
 
 class UsuarioWeb {
 	private $nombre_usuario = "";

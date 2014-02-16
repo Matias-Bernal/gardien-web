@@ -1,5 +1,5 @@
 <?php
-require_once('Reclamante.php');
+require_once('persistencia/Reclamante.php');
 
 class MTelefono {
 	private $reclamante = null;

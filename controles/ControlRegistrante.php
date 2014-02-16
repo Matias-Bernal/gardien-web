@@ -6,7 +6,7 @@ class ControlRegistrante {
 
 	public function obtenerRegistrantePorId($id){
 		$mp=new ManipuladorPersistencia();
-		$result = $mp->obtenerObjetosPorFiltro("registrante","ID='".$id."'");
+		$result = $mp->obtenerObjetosPorFiltro("REGISTRANTE","ID='".$id."'");
 		$row = mysqli_fetch_array($result);
 		$obj=new Agente($row["ID"],$row["NOMBRE_REGISTRANTE"]);
 		return $obj;
@@ -14,7 +14,7 @@ class ControlRegistrante {
 
 	public function obtenerRegistrantePorNombre($nombre){
 		$mp=new ManipuladorPersistencia();
-		$result = $mp->obtenerObjetosPorFiltro("registrante","NOMBRE_REGISTRANTE='".$nombre."'");
+		$result = $mp->obtenerObjetosPorFiltro("REGISTRANTE","NOMBRE_REGISTRANTE='".$nombre."'");
 		$row = mysqli_fetch_array($result);
 		$obj=new Agente($row["ID"],$row["NOMBRE_REGISTRANTE"]);
 		return $obj;

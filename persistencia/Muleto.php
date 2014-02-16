@@ -1,6 +1,6 @@
 <?php
-require_once('Pedido.php');
-require_once('Pieza.php');
+require_once('persistencia/Pedido.php');
+require_once('persistencia/Pieza.php');
 
 class Muleto {
 	private $descripcion = "";

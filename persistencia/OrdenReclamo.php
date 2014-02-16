@@ -1,6 +1,6 @@
 <?php
-require_once('Reclamo.php');
-require_once('Orden.php');
+require_once('persistencia/Reclamo.php');
+require_once('persistencia/Orden.php');
 
 class OrdenReclamo {
 	private $orden = null;

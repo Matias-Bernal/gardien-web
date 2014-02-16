@@ -6,7 +6,7 @@ class ControlUsuarioWeb {
 
 	public function obtenerUsuariosWeb(){
 		$mp=new ManipuladorPersistencia();
-		$result = $mp->obtenerTodosObjetos("usuarioweb");
+		$result = $mp->obtenerTodosObjetos("USUARIOWEB");
 		$listado=array();
 		if($result !== FALSE) {
 			while ($row = mysqli_fetch_array($result)){
@@ -19,7 +19,7 @@ class ControlUsuarioWeb {
 
 	public function obtenerUsuarioWeb($nombre){
 		$mp=new ManipuladorPersistencia();
-		$result = $mp->obtenerObjetosPorFiltro("usuarioweb","NOMBRE_USUARIO='".$nombre."'");
+		$result = $mp->obtenerObjetosPorFiltro("USUARIOWEB","NOMBRE_USUARIO='".$nombre."'");
 		if($result===False){
 			echo "RESULTADO FALSO";
 		}else{
@@ -32,13 +32,13 @@ class ControlUsuarioWeb {
     public function modificarContrasenia($nombre,$pass){
 		$mp=new ManipuladorPersistencia();
 		$contr=md5($pass);
-		$result = $mp->modificarObjeto("usuarioweb","CONTRASENIA='".$contr."'","NOMBRE_USUARIO='".$nombre."'");
+		$result = $mp->modificarObjeto("USUARIOWEB","CONTRASENIA='".$contr."'","NOMBRE_USUARIO='".$nombre."'");
 	}
 
 	public function verificarUsuarioWeb($nombre,$pass){
 		$mp=new ManipuladorPersistencia();
 		$contr=md5($pass);
-		$result2 = $mp->obtenerObjetosPorFiltro("usuarioweb","NOMBRE_USUARIO=\"".$nombre."\"");
+		$result2 = $mp->obtenerObjetosPorFiltro("USUARIOWEB","NOMBRE_USUARIO=\"".$nombre."\"");
 		if($result2 == FALSE) {
 			return "USUARIO INCORRECTO";
 		} else{

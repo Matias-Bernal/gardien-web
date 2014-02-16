@@ -7,7 +7,7 @@ class ControlModelo {
 
 	public function obtenerModelo(){
 		$mp=new ManipuladorPersistencia();
-		$result = $mp->obtenerTodosObjetos("modelo");
+		$result = $mp->obtenerTodosObjetos("MODELO");
 		$listado=array();
 		if($result !== FALSE) {
 			$cmarca=new ControlMarca();
@@ -24,7 +24,7 @@ class ControlModelo {
 
 	public function obtenerModeloPorId($id){
 		$mp=new ManipuladorPersistencia();
-		$result = $mp->obtenerObjetosPorFiltro("modelo","ID='".$id."'");
+		$result = $mp->obtenerObjetosPorFiltro("MODELO","ID='".$id."'");
 		$row = mysqli_fetch_array($result);
 		$cmarca=new ControlMarca();
 		$marca= $cmarca->obtenerMarcaPorId($row["MARCA_ID_OID"]);
@@ -36,7 +36,7 @@ class ControlModelo {
 
 	public function obtenerModeloPorNombre($nombre){
 		$mp=new ManipuladorPersistencia();
-		$result = $mp->obtenerObjetosPorFiltro("modelo","NOMBRE_MODELO='".$nombre."'");
+		$result = $mp->obtenerObjetosPorFiltro("MODELO","NOMBRE_MODELO='".$nombre."'");
 		$row = mysqli_fetch_array($result);
 		$cmarca=new ControlMarca();
 		$marca= $cmarca->obtenerMarcaPorId($row["MARCA_ID_OID"]);
@@ -49,7 +49,7 @@ class ControlModelo {
 	public function obtenerModeloPorMarca(Marca $marca){
 		$mp=new ManipuladorPersistencia();
 		$idMarca = $marca->getId();
-		$result = $mp->obtenerObjetosPorFiltro("modelo","MARCA_ID_OID='".$idMarca."'");
+		$result = $mp->obtenerObjetosPorFiltro("MODELO","MARCA_ID_OID='".$idMarca."'");
 		$listado=array();
 		if($result !== FALSE) {
 			while ($row = mysqli_fetch_array($result)){
@@ -63,19 +63,19 @@ class ControlModelo {
 
 	public function modificarModelo($id,Modelo $modelo){
 		$mp=new ManipuladorPersistencia();
-		$result = $mp->modificarObjeto("modelo","MARCA_ID_OID='".$modelo->getMarca().getId()."', NOMBRE_MODELO='".$modelo->getNombreModelo()."'","ID='".$id."'");
+		$result = $mp->modificarObjeto("MODELO","MARCA_ID_OID='".$modelo->getMarca().getId()."', NOMBRE_MODELO='".$modelo->getNombreModelo()."'","ID='".$id."'");
 		return $result;
 	}
 
 	public function agregarModelo(Modelo $modelo){
 		$mp=new ManipuladorPersistencia();
-		$result = $mp->agregarObjeto("modelo (MARCA_ID_OID,NOMBRE_MODELO)","('".$modelo->getMarca().getId()."','".$modelo->getNombreModelo()."')");
+		$result = $mp->agregarObjeto("MODELO (MARCA_ID_OID,NOMBRE_MODELO)","('".$modelo->getMarca().getId()."','".$modelo->getNombreModelo()."')");
 		return $result;
 	}
 
 	public function eliminarModelo($id){
 		$mp=new ManipuladorPersistencia();
-		$result = $mp->eliminarObjeto("modelo","ID='".$id."'");
+		$result = $mp->eliminarObjeto("MODELO","ID='".$id."'");
 		return $result;
 	}
 

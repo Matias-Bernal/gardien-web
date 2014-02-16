@@ -6,9 +6,6 @@
 <script type="text/javascript" src="js/Javascripts.js"></script>
 </head>
 <body>
-
-	<div id="cargar_reclamante">
-	</div>
 	<div id="cargar_vehiculo">
 		<?php
 			require_once ("funcionesGeneralesPagina.php");
@@ -19,6 +16,14 @@
 				session_start();
 		?>
 				<table id="tabla_vehiculos">
+					<tr class="headers">
+						<th>ID</th>
+						<th>NOMBRE TITULAR</th>
+						<th>DOMINIO</th>
+						<th>VIN</th>
+						<th>MARCA</th>
+						<th>MODELO</th>
+					</tr>
 		<?php
 					foreach ($vehiculos as $vehiculo) {
 						$idVehiculo=$vehiculo->getId();
@@ -28,9 +33,9 @@
 						$marca = $vehiculo->getMarca()->getNombreMarca();
 						$modelo = $vehiculo -> getModelo()->getNombreModelo();
 						echo "	<tr id='vehiculo_$idVehiculo' onClick=\"guardarVehiculo($idVehiculo,'vehiculo_$idVehiculo');\">
-									<td>$idVehiculo</td>
-									<td>$nombreTitular</td>
-									<td>$dominio</td>
+									<td width=50>$idVehiculo</td>
+									<td width=100>$nombreTitular</td>
+									<td width=75>$dominio</td>
 									<td>$vin</td>
 									<td>$marca</td>
 									<td>$modelo</td>
@@ -41,11 +46,6 @@
 		<?php
 			};
 		?>
-	</div>
-	<div id="nuevo_reclamante">
-
-	</div>
-	<div id="nuevo_vehiculo">
 	</div>
 </body>
 </html>

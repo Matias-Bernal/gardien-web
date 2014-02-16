@@ -1,5 +1,5 @@
 <?php
-require_once('Proveedor.php');
+require_once('persistencia/Proveedor.php');
 
 class Pieza {
 	private $id = 0;

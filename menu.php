@@ -9,13 +9,14 @@
 <?php
 require ("controles/ControlUsuarioWeb.php");
 require ("funcionesGeneralesPagina.php");
+
 logo();
 menulateral();
 
 ?>
 	<div class="pagina">
 		<div id="contenido">
-			<h1>MENU PRINCIPAL</h1>
+			<h1 align="center">MENU PRINCIPAL</h1>
 		</div>
 	</div>
 </body>

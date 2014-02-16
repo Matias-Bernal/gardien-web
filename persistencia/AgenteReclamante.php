@@ -1,6 +1,6 @@
 <?php
-require_once('Agente.php');
-require_once('Reclamante.php');
+require_once('persistencia/Agente.php');
+require_once('persistencia/Reclamante.php');
 
 class AgenteReclamante {
 	private $id = 0;
