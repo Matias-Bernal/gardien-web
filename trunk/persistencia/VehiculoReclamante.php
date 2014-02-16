@@ -1,6 +1,6 @@
 <?php
-require_once('Vehiculo.php');
-require_once('Reclamante.php');
+require_once('persistencia/Vehiculo.php');
+require_once('persistencia/Reclamante.php');
 
 class VehiculoReclamante {
 	private $reclamante = null;

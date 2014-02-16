@@ -1,6 +1,6 @@
 <?php
-require_once('Modelo.php');
-require_once('Marca.php');
+require_once('persistencia/Modelo.php');
+require_once('persistencia/Marca.php');
 
 class Vehiculo {
 	private $dominio = "";

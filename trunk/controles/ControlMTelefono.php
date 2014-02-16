@@ -7,7 +7,7 @@ class ControlMtelefono{
 
 	public function obtenerMTelefonos(){
 		$mp=new ManipuladorPersistencia();
-		$result = $mp->obtenerTodosObjetos("mtelefono");
+		$result = $mp->obtenerTodosObjetos("MTELEFONO");
 		$listado=array();
 		if($result !== FALSE) {
 			$creclamante=new ControlReclamante();
@@ -24,7 +24,7 @@ class ControlMtelefono{
 
 	public function obtenerMTelefonosPorReclamante($id_reclamante){
 		$mp=new ManipuladorPersistencia();
-		$result = $mp->obtenerObjetosPorFiltro("mtelefono","RECLAMANTE_ID_OID='".$id_reclamante."'");
+		$result = $mp->obtenerObjetosPorFiltro("MTELEFONO","RECLAMANTE_ID_OID='".$id_reclamante."'");
 		$listado=array();
 		if($result !== FALSE) {
 			$creclamante=new ControlReclamante();
@@ -37,7 +37,7 @@ class ControlMtelefono{
 	
 	public function agregarMTelefono(MTelefono $mtelefono){
 		$mp=new ManipuladorPersistencia();
-		$result = $mp->agregarObjeto("mtelefono (RECLAMANTE_ID_OID,TELEFONO)", "('".$mtelefono->getReclamante()->getId()."',
+		$result = $mp->agregarObjeto("MTELEFONO (RECLAMANTE_ID_OID,TELEFONO)", "('".$mtelefono->getReclamante()->getId()."',
 		'".$mtelefono->getTelefono()."')");
 		return $result;
 	}
@@ -46,7 +46,7 @@ class ControlMtelefono{
 	
 	public function eliminarMTelefono($id_mtelefono){
 		$mp=new ManipuladorPersistencia();
-		$result = $mp->eliminarObjeto("mtelefono","ID='".$id_mtelefono."'");
+		$result = $mp->eliminarObjeto("MTELEFONO","ID='".$id_mtelefono."'");
 		return $result;
 	}
 

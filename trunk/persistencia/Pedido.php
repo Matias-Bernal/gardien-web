@@ -1,5 +1,5 @@
 <?php
-require_once('Reclamo.php');
+require_once('persistencia/Reclamo.php');
 
 class Pedido {
 	private $id = 0;

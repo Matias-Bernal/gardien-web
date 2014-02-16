@@ -1,5 +1,5 @@
 <?php
-require_once('Marca.php');
+require_once('persistencia/Marca.php');
 
 class Modelo {
 	private $nombre_modelo = "";

@@ -3,8 +3,10 @@ var reclamanteNuevo = false;
 var vehiculoNuevo = false;
 var piezas_disponibles = new Array(1,2,3,4,5);
 var piezas_solicitadas = new Array();
+var piezas = new Array();
 var last_row_reclamante = -1;
 var last_row_vehiculo = -1;
+var id_reclamante = 0;
 
 function VerificarLogin()
 {
@@ -88,42 +90,25 @@ function VerificarCambioLogin()
     var passNew=document.cambiarLogin.passNew;
     var passModif=document.cambiarLogin.passModif;
     if(passOld.value==""){
-        alert('Ingrese la contraseña Actual') ;
+        alert('INGRESE LA CONTRASEÑA ACTUAL') ;
 	document.cambiarLogin.passOld.focus();
 	return(false);
     }
     if(passNew.value==""){
-        alert('Ingrese la contraseña Nueva') ;
+        alert('INGRESE LA CONTRASEÑA NUEVA') ;
 	document.cambiarLogin.passNew.focus();
 	return(false);
     }
     if(passModif.value==""){
-        alert('Ingrese nuavamente la contraseña Nueva') ;
+        alert('INGRESE NUAVAMENTE LA CONTRASEÑA NUEVA') ;
 	document.cambiarLogin.passModif.focus();
 	return(false);
     }
     if(passNew.value!=passModif.value){
-        alert('La contraseña Nueva y su Repetición no coinciden, ingreselas nuevamente') ;
+        alert('LA CONTRASEÑA NUEVA Y SU REPETICIÓN NO COINCIDEN, INGRESELAS NUEVAMENTE') ;
 	return(false);
     }
     document.cambiarLogin.submit();
-}
-// RESALTAR LAS FILAS AL PASAR EL MOUSE
-function ResaltarFila(id_fila)
-{
-    document.getElementById(id_fila).style.backgroundColor = '#C0C0C0';
-}
- 
-// RESTABLECER EL FONDO DE LAS FILAS AL QUITAR EL FOCO
-function RestablecerFila(id_fila)
-{
-    document.getElementById(id_fila).style.backgroundColor = '#FFFFFF';
-}
- 
-// CONVERTIR LAS FILAS EN LINKS
-function CrearEnlace(url)
-{
-    location.href=url;
 }
 
 function validarCUIT(e)
@@ -214,15 +199,19 @@ function nuevoReclamante()
 		var NvoCampo= document.createElement("div");
 		NvoCampo.id= "divcampo_reclamante_nuevo";
 		NvoCampo.innerHTML=
-			"<fieldset>" +
-			"		<p>*Nombre y Apeliido: <input type='text' name='nombre_reclamante_nuevo' id='nombre_reclamante_nuevo' /></p><br/>" +
-			"		<p>*DNI/CUIT: <input type='text' name='dni_reclamante_nuevo' id='dni_reclamante_nuevo' /></p><br/>" +
-			"		<p>*Telefono: <input type='text' name='telefono_reclamante_nuevo' id='telefono_reclamante_nuevo'/></p><br/>" +
-			"		<p>Email: <input type='text' name='email_reclamante_nuevo' id='email_reclamante_nuevo'/></p>" +
-			"		<a href='JavaScript:cancelarNuevoReclamante();'> Cancelar </a>" +
-			"		<a href='JavaScript:agregarNuevoReclamante();'> Agregar </a>" +
-			"	<br/>" +
-			"	</fieldset>";
+			"<table width='450'>"+
+			"		<tr> <td width=300 style='text-align:left;'>*Nombre y Apeliido:</td> <td style='text-align:left;'><input type='text' style='width: 420px;' name='nombre_reclamante_nuevo' id='nombre_reclamante_nuevo' maxlength='256'></td> </tr>"+
+			"		<tr> <td width=300 style='text-align:left;'>*DNI/CUIT:</td> <td style='text-align:left;'><p> <input type='text' style='width: 200px;' name='dni_reclamante_nuevo' id='dni_reclamante_nuevo' maxlength='11'></td> </tr>"+
+			"		<tr> <td width=300 style='text-align:left;'>*Telefono:</td> <td style='text-align:left;'><p> <input type='text' style='width: 420px;'name='telefono_reclamante_nuevo' id='telefono_reclamante_nuevo'maxlength='256'></td> </tr>"+
+			"		<tr> <td width=300 style='text-align:left;'>Email:</td> <td style='text-align:left;'><p> <input type='text' style='width: 420px;' name='email_reclamante_nuevo' id='email_reclamante_nuevo'maxlength='256'></td> </tr>"+
+			"</table> "+
+			"<table width='450'>"+
+			"		<tr align=\"center\">"+
+			"			<td><input name='agregar_reclamante' id='agregar_reclamante' type='button' onclick='agregarNuevoReclamante()' value='AGREGAR'></td>"+
+			"			<td><input name='cancelar_reclamante' id='cancelar_reclamante' type='button' onclick='cancelarNuevoReclamante()' value='CANCELAR'></td>"+
+			"		</tr>"+
+			"</table> "+
+			"<p>* Datos OBLIGATORIOS</p>";
 		var contenedor= document.getElementById("contenedor_nuevo_reclamante");
 		contenedor.appendChild(NvoCampo);
 	}
@@ -251,33 +240,45 @@ function agregarNuevoReclamante()
 				'&tel='+tel+'&email='+email);
 	reclamanteNuevo= false;
 }
+function cargarModelos(nomMarca){
+	var value = nomMarca.options[nomMarca.selectedIndex].value;
+	$('#modelo_nuevo').load('agregar.php?cargar_marca='+value);
+}
+
 // Vehiculo Nuevo
 function nuevoVehiculo()
 {
-	if(!vehiculoNuevo){
+	if(!vehiculoNuevo && id_reclamante!=0){
 		vehiculoNuevo= true;
 		var NvoCampo= document.createElement("div");
 		NvoCampo.id= "divcampo_vehiculo_nuevo";
 		NvoCampo.innerHTML=
-			"<fieldset>" +
-			"		<p>*Nombre del Titular: <input type='text' name='titular_nuevo' id='titular_nuevo'/></p><br/>" +
-			"		<p>*Dominio: <input type='text' name='dominio_nuevo' id='dominio_nuevo'/></p><br/>" +
-			"		<p>*Vin: <input type='text' name='vin_nuevo' id='vin_nuevo'/></p><br/>" +
-			"		<p>*Marca: <select name='marca_nuevo' id='marca_nuevo'>" +
-			"			<option>RENAULT</option>" +
-			"			<option>NISSAN</option>" +
-			"			</select></p><br/>" +
-			"		<p>*Modelo: <select name='modelo_nuevo' id='modelo_nuevo'>" +
-			"			<option>MEGANE III</option>" +
-			"			<option>LOGAN</option>" +
-			"			<option>MARCH</option>" +
-			"			<option>FRONTIER</option>" +
-			"			</select></p><br/>" +
-			"		<a href='JavaScript:cancelarNuevoVehiculo();'> Cancelar </a><br/>" +
-			"		<a href='JavaScript:agregarNuevoVehiculo();'> Agregar </a>" +
-			"</fieldset>";
+			"<table width='450'>"+
+			"		<tr> <td width=300 style='text-align:left;'>*Nombre del Titular:</td> <td style='text-align:left;'><input type='text' style='width: 420px;' name='titular_nuevo' id='titular_nuevo' maxlength='256'></td> </tr>"+
+			"		<tr> <td width=300 style='text-align:left;'>*Dominio:</td> <td style='text-align:left;'><input type='text' style='width: 200px;' name='dominio_nuevo' id='dominio_nuevo' maxlength='6'></td> </tr>"+
+			"		<tr> <td width=300 style='text-align:left;'>*Vin:</td> <td style='text-align:left;'><input type='text' style='width: 420px;' name='vin_nuevo' id='vin_nuevo' maxlength='17'></td> </tr>"+
+			"		<tr> <td width=300 style='text-align:left;'>*Marca:</td> <td style='text-align:left;'>"+
+			"			<select style='width: 420px;' name='marca_nuevo' id='marca_nuevo' onchange=\"cargarModelos(this)\">" +
+			"				<option>RENAULT</option>" +
+			"				<option>NISSAN</option>" +
+			"			</select> </td>"+
+			"		</tr>"+ 
+			"		<tr> <td width=300 style='text-align:left;'>*Modelo:</td> <td style='text-align:left;'>"+
+			"			<select style='width: 420px;' name='modelo_nuevo' id='modelo_nuevo'>" +
+			"			</select> </td>"+
+			"		</tr>"+
+			"</table> "+
+			"<table width='450'>"+
+			"		<tr align=\"center\">"+
+			"			<td><input name='agregar_vehiculo' id='agregar_vehiculo' type='button' onclick=\"agregarNuevoVehiculo()\" value='AGREGAR'></td>"+
+			"			<td><input name='cancelar_vehiculo' id='cancelar_vehiculo' type='button' onclick=\"cancelarNuevoVehiculo()\" value='CANCELAR'></td>"+
+			"		</tr>"+
+			"</table> "+
+			"<p>* Datos OBLIGATORIOS</p>";
 		var contenedor= document.getElementById("contenedor_nuevo_vehiculo");
 		contenedor.appendChild(NvoCampo);
+	}else{
+		alert('SELECCIONE PRIMERO UN RECLAMANTE');
 	}
 }
 
@@ -307,6 +308,7 @@ function agregarNuevoVehiculo()
 	var vin = document.getElementById('vin_nuevo').value;
 	var marca = document.getElementById('marca_nuevo').value;
 	var modelo = document.getElementById('modelo_nuevo').value;
+
 	titular = titular.replace(/\s/g,"%20");
 	dominio= dominio.replace(/\s/g,"%20");
 	vin = vin.replace(/\s/g,"%20");
@@ -326,6 +328,7 @@ function agregarPieza()
 		piezas_solicitadas = piezas_solicitadas.concat(pieza);
 		var NvoCampo= document.createElement("div");
 		NvoCampo.id= "divcampo_"+(pieza);
+		piezas = piezas.concat(NvoCampo.id);
 		NvoCampo.innerHTML= 
 			"<table>" +
 			"	<thead>"+
@@ -333,13 +336,13 @@ function agregarPieza()
 			"	</thead>" +
 			"   <tr>" +
 			"     <td align=center width='200' nowrap='nowrap'>" +
-			"        <input type='text' size='35'name='pieza_" + pieza + "' id='pieza_" + pieza + "'>" +
+			"        <input type='text' size='35'name='pieza_" + pieza + "' id='pieza_" + pieza + "' maxlength='25'>" +
 			"     </td>" +
 			"     <td align=center width='300' nowrap='nowrap'>" +
-			"        <input type='text' size='55' name='descripcion_" + pieza + "' id='descripcion_" + pieza + "'>" +
+			"        <input type='text' size='55' name='descripcion_" + pieza + "' id='descripcion_" + pieza + "' maxlength='255'>" +
 			"     </td>" +
 			"     <td align=center>" +
-			"        <a href='JavaScript:quitarPieza(" + pieza +");'> Quitar </a>" +
+			"        <input name='quitar_pieza' id='quitar_pieza' type='button' onclick='quitarPieza(" + pieza +");' value='QUITAR'>" +
 			"     </td>" +
 			"   </tr>" +
 			"</table>";
@@ -353,6 +356,10 @@ function quitarPieza(iddiv)
   var eliminar = document.getElementById("divcampo_" + iddiv);
   var contenedor = document.getElementById("contenedorpiezas");
   contenedor.removeChild(eliminar);
+
+  var i = piezas.indexOf("divcampo_" + iddiv); // Localizamos el indice del elemento en array
+  if(i!=-1) piezas.splice(i, 1);
+
   piezas_disponibles = piezas_disponibles.concat(iddiv);
   var idx = piezas_solicitadas.indexOf(iddiv); // Localizamos el indice del elemento en array
   if(idx!=-1) piezas_solicitadas.splice(idx, 1); // Lo borramos definitivamente
@@ -367,6 +374,8 @@ function cargarVehiculos(idReclamante,id_fila_reclamante)
 	last_row_reclamante = id_fila_reclamante;
 	last_row_vehiculo = -1;
 	document.cookie='id_reclamante='+idReclamante;
+	id_reclamante = idReclamante;
+	//$('#div_tabla_vehiculos').load('agregar.php?cargar_vehiculo='+idReclamante);
 	$('#div_tabla_vehiculos').load('tablasExternas.php?id_reclamante='+idReclamante+' #cargar_vehiculo');
 }
 
@@ -392,4 +401,8 @@ function armarEmail(){
 	// document.cookie ='archivo='+archivo;
 	var datos_adicionales = document.getElementById('datos_Adicionales').value;
 	document.cookie ='datos_adicionales='+datos_adicionales;
+}
+
+function verPedido(idPedido){
+	window.location.href = 'verPedido.php?id_pedido='+idPedido;
 }

@@ -7,7 +7,7 @@ class ControlVehiculo {
 
 	public function obtenerVehiculos(){
 		$mp=new ManipuladorPersistencia();
-		$result = $mp->obtenerTodosObjetos("vehiculo");
+		$result = $mp->obtenerTodosObjetos("VEHICULO");
 		$listado=array();
 		if($result !== FALSE) {
 			$cmarca=new ControlMarca();
@@ -26,7 +26,7 @@ class ControlVehiculo {
 
 	public function obtenerVehiculoPorId($id){
 		$mp=new ManipuladorPersistencia();
-		$result = $mp->obtenerObjetosPorFiltro("vehiculo","ID='".$id."'");
+		$result = $mp->obtenerObjetosPorFiltro("VEHICULO","ID='".$id."'");
 		if($result !== FALSE) {
 			$row = mysqli_fetch_array($result);
 			$cmarca=new ControlMarca();
@@ -42,7 +42,7 @@ class ControlVehiculo {
 
 	public function obtenerVehiculosPorReclamante($id){
 	$mp=new ManipuladorPersistencia();
-	$result = $mp->obtenerObjetosPorFiltro("vehiculo_reclamante","ID_RECLAMANTE='".$id."'");
+	$result = $mp->obtenerObjetosPorFiltro("VEHICULO_RECLAMANTE","ID_RECLAMANTE='".$id."'");
 	$listado=array();
 		if($result !== FALSE) {
 			while ($row = mysqli_fetch_array($result)){
@@ -54,7 +54,7 @@ class ControlVehiculo {
 
 	public function obtenerVehiculoPorDominio($dominio){
 		$mp=new ManipuladorPersistencia();
-		$result = $mp->obtenerObjetosPorFiltro("vehiculo","DOMINIO='".$dominio."'");
+		$result = $mp->obtenerObjetosPorFiltro("VEHICULO","DOMINIO='".$dominio."'");
 		if($result !== FALSE) {
 			$row = mysqli_fetch_array($result);
 			$cmarca=new ControlMarca();
@@ -70,7 +70,7 @@ class ControlVehiculo {
 
 	public function obtenerVehiculoPorVin($vin){
 		$mp=new ManipuladorPersistencia();
-		$result = $mp->obtenerObjetosPorFiltro("vehiculo","VIN='".$vin."'");
+		$result = $mp->obtenerObjetosPorFiltro("VEHICULO","VIN='".$vin."'");
 		if($result !== FALSE) {
 			$row = mysqli_fetch_array($result);
 			$cmarca=new ControlMarca();
@@ -86,7 +86,7 @@ class ControlVehiculo {
 
 	public function modificarVehiculo($id,$vehiculo){
 		$mp=new ManipuladorPersistencia();
-		$result = $mp->modificarObjeto("vehiculo",
+		$result = $mp->modificarObjeto("VEHICULO",
 		"DOMINIO='".$vehiculo->getDominio()."', 
 		MARCA_ID_OID='".$vehiculo->getMarca()->getId()."', 
 		MODELO_ID_OID='".$vehiculo->getModelo()->getId()."', 
@@ -97,7 +97,7 @@ class ControlVehiculo {
 
 	public function agregarVehiculo(Vehiculo $vehiculo){
 		$mp=new ManipuladorPersistencia();
-		$result = $mp->agregarObjeto("vehiculo (DOMINIO,MARCA_ID_OID,MODELO_ID_OID,NOMBRE_TITULAR,VIN)",
+		$result = $mp->agregarObjeto("VEHICULO (DOMINIO,MARCA_ID_OID,MODELO_ID_OID,NOMBRE_TITULAR,VIN)",
 		"('".$vehiculo->getDominio()."',
 		'".$vehiculo->getMarca()->getId()."',
 		'".$vehiculo->getModelo()->getId()."',
@@ -108,7 +108,7 @@ class ControlVehiculo {
 
 	public function eliminarVehiculo($id){
 		$mp=new ManipuladorPersistencia();
-		$result = $mp->eliminarObjeto("vehiculo","ID='".$id."'");	
+		$result = $mp->eliminarObjeto("VEHICULO","ID='".$id."'");	
 		return $result;
 	}
 

@@ -10,7 +10,7 @@ class ControlAgenteReclamante{
 
 	public function obtenerAgenteReclamante(){
 		$mp=new ManipuladorPersistencia();
-		$result = $mp->obtenerTodosObjetos("agente_reclamante");
+		$result = $mp->obtenerTodosObjetos("AGENTE_RECLAMANTE");
 		$listado=array();
 		if($result !== FALSE) {
 			$cagente=new ControlAgente();
@@ -29,7 +29,7 @@ class ControlAgenteReclamante{
 
 	public function obtenerReclamantes($id_agente){
 		$mp=new ManipuladorPersistencia();
-		$result = $mp->obtenerObjetosPorFiltro("agente_reclamante","ID_AGENTE='".$id_agente."'");
+		$result = $mp->obtenerObjetosPorFiltro("AGENTE_RECLAMANTE","ID_AGENTE='".$id_agente."'");
 		$listado=array();
 		if($result !== FALSE) {
 			$creclamante=new ControlReclamante();
@@ -45,7 +45,7 @@ class ControlAgenteReclamante{
 	
 	public function agregarAgenteReclamante($idAgente, $idReclamante){
 		$mp=new ManipuladorPersistencia();
-		$result = $mp->agregarObjeto("agente_reclamante (ID_AGENTE,ID_RECLAMANTE)",
+		$result = $mp->agregarObjeto("AGENTE_RECLAMANTE (ID_AGENTE,ID_RECLAMANTE)",
 		"('".$idAgente."','".$idReclamante."')");
 		return $result;
 	}
@@ -56,7 +56,7 @@ class ControlAgenteReclamante{
 		$mp=new ManipuladorPersistencia();
 		$idAgente = $agenteReclamante->getAgente->getId();
 		$idReclamante = $agenteReclamante->getReclamante()->getId();
-		$result = $mp->eliminarObjeto("agente_reclamante","ID_AGENTE='".$idAgente."' AND ID_RECLAMANTE='".$idReclamante."'");
+		$result = $mp->eliminarObjeto("AGENTE_RECLAMANTE","ID_AGENTE='".$idAgente."' AND ID_RECLAMANTE='".$idReclamante."'");
 		return $result;
 	}
 

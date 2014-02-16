@@ -1,5 +1,5 @@
 <?php
-require_once('Recurso.php');
+require_once('persistencia/Recurso.php');
 
 class Orden {
 	private $numero_orden = "";
@@ -10,7 +10,7 @@ class Orden {
 	private $id = 0;
 
 
-	public function __construct($i,$n,$fa,$fc,$e,Recurso $r){
+	public function __construct($i,$n,$fa,$fc,$e,$r){
 		$this->id = $i;
 		$this->numero_orden = $n;
 		$this->fecha_apertura = $fa;
@@ -57,7 +57,7 @@ class Orden {
 	public function getRecurso(){
 		return $this->recurso;
 	}
-	public function setRecurso(Recurso $r){
+	public function setRecurso($r){
 		$this->recurso = $r;
 	}
 

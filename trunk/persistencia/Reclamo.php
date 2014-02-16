@@ -1,9 +1,9 @@
 <?php
-require_once('Registrante.php');
-require_once('Reclamante.php');
-require_once('Vehiculo.php');
-require_once('Usuario.php');
-require_once('Orden.php');
+require_once('persistencia/Registrante.php');
+require_once('persistencia/Reclamante.php');
+require_once('persistencia/Vehiculo.php');
+require_once('persistencia/Usuario.php');
+require_once('persistencia/Orden.php');
 
 class Reclamo {
 	private $fecha_reclamo = "";
@@ -119,5 +119,4 @@ class Reclamo {
 		$this->orden = $ord;
 	}
 }
-
 ?>

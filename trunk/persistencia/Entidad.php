@@ -1,5 +1,5 @@
 <?php
-require_once('Registrante.php');
+require_once('persistencia/Registrante.php');
 
 class Entidad extends Registrante  {
 
