@@ -39,58 +39,74 @@ menulateral();
 						if($_REQUEST['accion']=="enviarFormulario"){
 							//comprobamos si se adjunto un archivo, y si su tamano es menor al permitido
 							if (isset($_FILES['archivo']['tmp_name'])) {
-							$tipo=$_FILES['archivo']['type'];
-							//Formatos de archivo permitidos, si desean agregar mas, agregar un case para cada formato. 
+								$tipo=$_FILES['archivo']['type'];
+								//Formatos de archivo permitidos, si desean agregar mas, agregar un case para cada formato. 
 								switch ($tipo) {
-								case "image/gif":
-								$ext="gif";
-								break;
-								case "image/pjpeg":
-								$ext="jpg";
-								break;
-								case "image/jpeg":
-								$ext="jpg";
-								break;
-								case "image/png":
-								$ext="png";
-								break;
-								case "application/zip":
-								$ext="zip";
-								break;
-								case "application/msword":
-								$ext="doc";
-								break;
-								case "application/pdf":
-								$ext="pdf";
-								break;	
-								case "application/rtf":
-								$ext="rtf";
-								break;	
-								case "application/octet-stream":
-								$extension_type= explode ('.', $_FILES['archivo']['name']);
-								$ext= end($extension_type);
-								if($ext!="rar") {$ext="error";}
-								break;			
-								default:
-								$ext="error";
-								break;
+									case "image/gif":
+									$ext="gif";
+									break;
+									case "image/pjpeg":
+									$ext="jpg";
+									break;
+									case "image/jpeg":
+									$ext="jpg";
+									break;
+									case "image/png":
+									$ext="png";
+									break;
+									case "application/zip":
+									$ext="zip";
+									break;
+									case "application/msword":
+									$ext="doc";
+									break;
+									case "application/pdf":
+									$ext="pdf";
+									break;	
+									case "application/rtf":
+									$ext="rtf";
+									break;
+									case "application/octet-stream":
+									$extension_type= explode ('.', $_FILES['archivo']['name']);
+									$ext= end($extension_type);
+									if($ext!="rar") {$ext="error";}
+									break;	
+									default:
+									$ext="error";
+									break;
+								}
+								$aleatorio = rand(); 
+								$nombreoriginal= explode ('.', $_FILES['archivo']['name']);
+								$tamano=$_FILES['archivo']['size'];
+								$nuevonombre=$nombreoriginal[0].'-'.$aleatorio.'.'.$ext;
+
+								if ($ext=="error") {
+										$error_archivo="<br />- Formato de archivo no permitido.";
+										echo "<script  language=\"JavaScript\">";
+										echo "	alert('Formato de Archivo Invalido. Intente Nuevamente');";
+										echo "	doRedirect(\"nuevoPedido.php\");";
+										echo "</script>";
+								}
+								$maximo_tamano= '6000000';
+								if ($tamano > $maximo_tamano) {
+										$error_archivo="<br />- El tama&ntilde;o de su archivo supera el m&aacute;ximo permitido.";
+										echo "<script  language=\"JavaScript\">";
+										echo "	alert('Archivo Invalido. Intente Nuevamente');";
+										echo "	doRedirect(\"nuevoPedido.php\");";
+										echo "</script>";
+								}
+								// copiamos el archivo en el servidor
+								copy($_FILES['archivo']['tmp_name'],'formularios/'.$nuevonombre);
+								$_SESSION['nuevonombre']=$nuevonombre;
+								echo "<script  language=\"JavaScript\">";
+								echo "doRedirect(\"enviarEmail.php\");";
+								echo "</script>";
+							}else{
+								echo "<script  language=\"JavaScript\">";
+								echo "	alert('Archivo Invalido. Intente Nuevamente');";
+								echo "	doRedirect(\"nuevoPedido.php\");";
+								echo "</script>";
 							}
-							$maximo_tamano= '6000000';
-							$aleatorio = rand(); 
-							$nombreoriginal= explode ('.', $_FILES['archivo']['name']);
-							$tamano=$_FILES['archivo']['size'];
-							$nuevonombre=$nombreoriginal[0].'-'.$aleatorio.'.'.$ext;
-							}
-							if (isset ($nuevonombre)) {
-								if ($ext=="error") {$error_archivo="<br />- Formato de archivo no permitido.";}
-								if ($tamano > $maximo_tamano) {$error_archivo="<br />- El tama&ntilde;o de su archivo supera el m&aacute;ximo permitido.";}
-							}
-							// copiamos el archivo en el servidor
-							copy($_FILES['archivo']['tmp_name'],'formularios/'.$nuevonombre);
-							$_SESSION['nuevonombre']=$nuevonombre;
-							echo "<script  language=\"JavaScript\">";
-							echo "doRedirect(\"enviarEmail.php\");";
-							echo "</script>";
 						}
 					}
 			?>
@@ -167,7 +183,7 @@ menulateral();
 						<fieldset>
 		 					<legend>PIEZAS A SOLICITAR</legend>
 							<p align="center"> <input name='agregar_pieza' id='agregar_pieza' type='button' onclick='agregarPieza()' value='AGREGAR PIEZA'></p>
-							<div id="contenedorpiezas">
+							<div id="contenedorpiezas" name="contenedorpiezas">
 							</div>
 		 				<br/>
 						</fieldset>
@@ -189,7 +205,7 @@ menulateral();
 		 				
 						<fieldset>
 							<legend>ENVIAR FORMULARIO</legend>
-							<p align="center"><input type="submit"	type='button' onclick='armarEmail()' value="ENVIAR NUEVO PEDIDO"/>
+							<p align="center"><input type='button' onclick='armarEmail()' value="ENVIAR NUEVO PEDIDO"/>
 						<br/>
 						</fieldset>
 					</form>

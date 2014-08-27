@@ -39,6 +39,7 @@
 			$mail->From = "garantiasriv@taglerenault.com.ar";
 			$mail->FromName = "TAGLE GARANTIAS";
 			$mail->Subject = "SOLICITUD DE PEDIDO DE AGENTE VIA GARDIEN WEB";
+
 			$mail->MsgHTML("<CENTER><b>SOLICITUD DE PEDIDO DE PIEZA PARA AGENTE VIA GARDIEN WEB</b></CENTER>
 							<HR align=\"CENTER\" size=\"2\" width=\"400\" color=\"Red\" noshade>
 							<br>
@@ -69,14 +70,15 @@
 						  ");
 			$ruta = dirname(__FILE__)."/formularios/".$_SESSION['nuevonombre'];
 			$mail->AddAttachment($ruta, basename($ruta));
-			$mail->AddAddress("pbarrionuevo@taglerenault.com.ar", "Pablo Barrionuevo");
-			$mail->AddAddress("pmanchado@taglerenault.com.ar", "Pilar Manchado");
+			//$mail->AddAddress("pbarrionuevo@taglerenault.com.ar", "Pablo Barrionuevo");
+			//$mail->AddAddress("pmanchado@taglerenault.com.ar", "Pilar Manchado");
+			$mail->AddAddress("payomaty666@gmail.com", "Matias Bernal");
 			$mail->IsHTML(true);
 			if(!$mail->Send()) {
 				echo "Error: " . $mail->ErrorInfo;
 			} else {
 				echo "<script  language=\"JavaScript\">";
-				echo "alert(\"Pedido Solicitado\");";
+				echo "alert(\"PEDIDO ENVIADO\");";
 				echo "doRedirect(\"menu.php\");";
 				echo "</script>";
 				$username = $_SESSION['nombreUsuario'];
