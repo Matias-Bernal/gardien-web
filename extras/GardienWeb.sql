@@ -1,4 +1,6 @@
-﻿DROP TABLE IF EXISTS usuarioweb;
+﻿use tagle_garantias;
+
+DROP TABLE IF EXISTS usuarioweb;
 CREATE TABLE usuarioweb (
 		NOMBRE_USUARIO varchar(40) NOT NULL,
 		CONTRASENIA varchar(40) NOT NULL,
@@ -45,3 +47,10 @@ CREATE TABLE pedido_pieza_reclamo_tagle (
 		CONSTRAINT fk_pprt_pedido_web FOREIGN KEY (PEDIDO_ID) REFERENCES pedido (ID),
 		CONSTRAINT fk_pprt_pieza_web FOREIGN KEY (PIEZA_ID) REFERENCES pieza (ID)
 );
+
+INSERT INTO `tagle_garantias`.`usuarioweb` (`NOMBRE_USUARIO`, `CONTRASENIA`, `ID_AGENTE`) VALUES ('villareal', MD5('9wgxg4ss'), '6'), ('acuyo', MD5('415rpkhs'), '3'), ('strada', MD5('tzh4h04u'), '5'), ('anzulovich', MD5('8kd3bzu0'), '4'), ('lubricofi', MD5('5p54pf0t'), '8'), ('rmvm', MD5('8ys2od5e'), '7');
+
+ALTER TABLE `tagle_garantias`.`pedido_pieza` 
+ADD COLUMN `FECHA_RECEPCION_TAGLE` DATE NULL DEFAULT NULL AFTER `STOCK`,
+ADD COLUMN `DEVOLUCION_TAGLE_ID_OID` BIGINT(20) NULL DEFAULT NULL AFTER `FECHA_RECEPCION_TAGLE`,
+ADD CONSTRAINT `fk_dev_tagle_web` FOREIGN KEY (`DEVOLUCION_TAGLE_ID_OID`) REFERENCES `tagle_garantias`.`agente` (`ID`);

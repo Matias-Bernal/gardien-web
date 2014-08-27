@@ -7,6 +7,7 @@ var piezas = new Array();
 var last_row_reclamante = -1;
 var last_row_vehiculo = -1;
 var id_reclamante = 0;
+var id_vehiculo = 0;
 
 function VerificarLogin()
 {
@@ -23,65 +24,6 @@ function VerificarLogin()
 		return(false);
 	}
 	document.ingresar.submit();
-}
-
-function VerificarFormularioPedido()
-{
-	var aceptacion=document.pedido.Aceptacion_de_Cargos;
-	var reclamante=document.pedido.Reclamante;
-	var telefono=document.pedido.Telefono;
-	var email=document.pedido.Email;
-	var titular=document.pedido.Titular;
-	var dominio=document.pedido.Dominio;
-	var vin=document.pedido.VIN;
-	var marca=document.pedido.Marca;
-	var modelo=document.pedido.Modelo;
-	if(aceptacion.value==""){
-		alert('Debe enviar el documento de Aceptacion de Cargos') ;
-		document.pedido.Aceptacion_de_Cargos.focus();
-		return(false);
-	}
-	if(reclamante.value==""){
-		alert('Debe ingresar el nombre del reclamante') ;
-		document.pedido.Reclamante.focus();
-		return(false);
-	}
-	if(telefono.value==""){
-		alert('Debe ingresar el telefono del reclamante') ;
-		document.pedido.Telefono.focus();
-		return(false);
-	}
-	if(email.value==""){
-		alert('Debe ingresar el email del reclamante') ;
-		document.pedido.Email.focus();
-		return(false);
-	}
-	if(titular.value==""){
-		alert('Debe ingresar el titular del vehiculo') ;
-		document.pedido.Titular.focus();
-		return(false);
-	}
-	if(dominio.value==""){
-		alert('Debe ingresar el dominio del vehiculo') ;
-		document.pedido.Dominio.focus();
-		return(false);
-	}
-	if(vin.value==""){
-		alert('Debe ingresar el VIN del vehiculo') ;
-		document.pedido.VIN.focus();
-		return(false);
-	}
-	if(marca.value==""){
-		alert('Debe ingresar la marca del vehiculo') ;
-		document.pedido.Marca.focus();
-		return(false);
-	}
-	if(modelo.value==""){
-		alert('Debe ingresar el modelo del vehiculo') ;
-		document.pedido.Modelo.focus();
-		return(false);
-	}
-	document.pedido.submit();
 }
 
 function VerificarCambioLogin()
@@ -135,36 +77,7 @@ function validarNro(e)
 
 function esNro(a)
 {
-	if (a!='0' && a!='1' && a!='2' && a!='3' && a!='4' && a!='5' && a!='6' && a!='7' && a!='8' && a!='9')
-		return false;
-	else
-		return true;
-}
-
-function validarFecha(resp)
-{
-	var dot='/';
-	var rta =true;
-	if(resp.length!=10){
-		rta = false;
-	}else{
-		for(i=0;i<resp.length;i++){
-			if(i!=2 && i!=5){
-				if(!esNro(resp.charAt(i))) {
-					rta = false;
-				}
-			}else{
-				if(resp.charAt(i)!='/'){
-					rta = false;
-				}
-			}
-		}
-	}
-	if(!rta){
-		alert("Por favor ingrese una fecha con el siguiente formato: (dd/mm/aaaa)");
-		document.getElementById("fecha").focus();
-	}
-	return rta;
+	return (a=='0' || a=='1' || a=='2' || a=='3' || a=='4' || a=='5' || a=='6' || a=='7' || a=='8' || a=='9');
 }
 
 function ContarTexto(actual, cajita, max)
@@ -174,17 +87,6 @@ function ContarTexto(actual, cajita, max)
 		alert("No puede ingresar mas texto");
 	}else
 		cajita.value = max - actual.value.length;
-}
-
-function validarExtensionFoto(path,foto)
-{
-	var ext1= path.substring(path.length-4,path.length);
-	if(ext1!='.gif' &&  ext1!='.GIF' && ext1!='.jpg' &&  ext1!='.JPG' &&
-			ext1!='.bmp' &&  ext1!='.BMP' && ext1!='.png' &&  ext1!='.PNG') {
-		alert("Formato incorrecto de "+ foto+". Solo se permiten archivos .gif, .jpg, .png o .bmp ") ;
-		return false ;
-	}else
-		return true;
 }
 
 function doRedirect(pagina)
@@ -231,14 +133,18 @@ function agregarNuevoReclamante()
 	var dni = document.getElementById('dni_reclamante_nuevo').value;
 	var tel = document.getElementById('telefono_reclamante_nuevo').value;
 	var email = document.getElementById('email_reclamante_nuevo').value;
-	nombre = nombre.replace(/\s/g,"%20");
-	dni= dni.replace(/\s/g,"%20");
-	tel = tel.replace(/\s/g,"%20");
-	email = email.replace(/\s/g,"%20");
-	// aca abajo podira usar el load que devuelve el estado si hay un error
-	$('#div_reclamantes').load('agregar.php?agregar_reclamante=1&nombre='+nombre+'&dni='+dni+
-				'&tel='+tel+'&email='+email);
-	reclamanteNuevo= false;
+	if(nombre!="" && dni!="" && tel!=""){
+		nombre = nombre.replace(/\s/g,"%20");
+		dni= dni.replace(/\s/g,"%20");
+		tel = tel.replace(/\s/g,"%20");
+		email = email.replace(/\s/g,"%20");
+		// aca abajo podira usar el load que devuelve el estado si hay un error
+		$('#div_reclamantes').load('agregar.php?agregar_reclamante=1&nombre='+nombre+'&dni='+dni+
+					'&tel='+tel+'&email='+email);
+		reclamanteNuevo= false;
+	}else{
+		alert('Faltan datos obligatorios. Intente Nuevamente');
+	}
 }
 function cargarModelos(nomMarca){
 	var value = nomMarca.options[nomMarca.selectedIndex].value;
@@ -308,16 +214,19 @@ function agregarNuevoVehiculo()
 	var vin = document.getElementById('vin_nuevo').value;
 	var marca = document.getElementById('marca_nuevo').value;
 	var modelo = document.getElementById('modelo_nuevo').value;
-
-	titular = titular.replace(/\s/g,"%20");
-	dominio= dominio.replace(/\s/g,"%20");
-	vin = vin.replace(/\s/g,"%20");
-	marca = marca.replace(/\s/g,"%20");
-	modelo = modelo.replace(/\s/g,"%20");
-	// aca abajo podira usar el load que devuelve el estado si hay un error
-	$('#div_vehiculos').load('agregar.php?agregar_vehiculo='+reclamante+'&titular='+titular+'&dominio='+dominio+
-	 			'&vin='+vin+'&marca='+marca+'&modelo='+modelo);
-	vehiculoNuevo= false;
+	if(titular!="" && dominio!="" && vin!="" && marca!="" && modelo!=""){
+		titular = titular.replace(/\s/g,"%20");
+		dominio= dominio.replace(/\s/g,"%20");
+		vin = vin.replace(/\s/g,"%20");
+		marca = marca.replace(/\s/g,"%20");
+		modelo = modelo.replace(/\s/g,"%20");
+		// aca abajo podira usar el load que devuelve el estado si hay un error
+		$('#div_vehiculos').load('agregar.php?agregar_vehiculo='+reclamante+'&titular='+titular+'&dominio='+dominio+
+		 			'&vin='+vin+'&marca='+marca+'&modelo='+modelo);
+		vehiculoNuevo= false;
+	}else{
+		alert('Faltan datos obligatorios. Intente Nuevamente');
+	}
 }
 
 // Piezas pedidas
@@ -386,21 +295,40 @@ function guardarVehiculo(idVehiculo,id_fila_vehiculo)
 	}
 	document.getElementById(id_fila_vehiculo).style.backgroundColor = '#FF0000';
 	last_row_vehiculo = id_fila_vehiculo;
+	id_vehiculo = idVehiculo;
 	document.cookie='id_vehiculo='+idVehiculo;
 }
 
 function armarEmail(){
-	var piezas_html = "";
-	for(i=0;i<piezas_solicitadas.length;i++){
-		num_pieza = document.getElementById('pieza_'+ piezas_solicitadas[i]).value;
-		desc = document.getElementById('descripcion_'+ piezas_solicitadas[i]).value;
-		piezas_html = piezas_html+' <p>PIEZA '+i+': NUMERO DE PIEZA: '+num_pieza+' DESCRIPCION: '+desc+'</p>';
+	var aceptacion=document.pedido.archivo.value;
+	if(id_reclamante==0){
+		alert('DEBE SELECCIONAR UN RECLAMANTE') ;
+	}else{
+		if(id_vehiculo==0){
+			alert('DEBE SELECCIONAR UN VEHICULO') ;
+		}else{
+			if(piezas_solicitadas.length < 1){
+				alert('DEBE SOLICITAR AL MENOS UNA PIEZA') ;
+			}else{
+				var piezas_html = "";
+				for(i=0;i<piezas_solicitadas.length;i++){
+					num_pieza = document.getElementById('pieza_'+ piezas_solicitadas[i]).value;
+					desc = document.getElementById('descripcion_'+ piezas_solicitadas[i]).value;
+					piezas_html = piezas_html+' <p>PIEZA '+i+': NUMERO DE PIEZA: '+num_pieza+' DESCRIPCION: '+desc+'</p>';
+				}
+				document.cookie ='piezas_pedidas='+piezas_html;
+				var datos_adicionales = document.getElementById('datos_Adicionales').value;
+				document.cookie ='datos_adicionales='+datos_adicionales;
+				if(aceptacion!=""){
+					var archivo = document.getElementById('archivo').value;
+					document.cookie ='archivo='+archivo;
+					document.pedido.submit();
+				}else{
+					alert('DEBE ADJUNTAR EL FORMULARIO DE ACEPTACION DE CARGOS') ;
+				}
+			}
+		}
 	}
-	document.cookie ='piezas_pedidas='+piezas_html;
-	// var archivo = document.getElementById('archivo').value;
-	// document.cookie ='archivo='+archivo;
-	var datos_adicionales = document.getElementById('datos_Adicionales').value;
-	document.cookie ='datos_adicionales='+datos_adicionales;
 }
 
 function verPedido(idPedido){
